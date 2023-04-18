@@ -1,0 +1,22 @@
+fileFormatVersion: 2
+guid: 3fac4e2ca1dd60744b5c2fe2d69f9ce2
+TrueTypeFontImporter:
+  externalObjects: {}
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontNames:
+  - Nightside Demo
+  fallbackFontReferences:
+  - {fileID: 12800000, guid: 019421eca50fed845b8d747ecade4837, type: 3}
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  useLegacyBoundsCalculation: 0
+  shouldRoundAdvanceValue: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
