@@ -5,9 +5,9 @@ using UnityEngine;
 [RequireComponent(typeof(CharacterController))]
 public class PlayerController : MonoBehaviour
 {
-    [Header ("Referenes")]
+    [Header("Referenes")]
     public Camera playerCamera;
-    [Header ("General")]
+    [Header("General")]
 
     public float gravityScale = -20f;
 
@@ -21,24 +21,26 @@ public class PlayerController : MonoBehaviour
 
     public float jumpHeight = 1.9f;
     private float cameraVerticalAngle;
-    Vector3 moveInput = Vector3.zero;
+    [SerializeField] Vector3 moveInput = Vector3.zero;
     Vector3 rotationinput = Vector3.zero;
     CharacterController characterController;
     private void Awake()
     {
         characterController = GetComponent<CharacterController>();
+        Cursor.lockState = CursorLockMode.Locked;
     }
     private void Update()
     {
+
         Look();
         Move();
     }
     private void Move()
     {
-        if (characterController.isGrounded)
-        {
-        moveInput = new Vector3(Input.GetAxis("Horizntal"), 0f, Input.GetAxis("Vertical"));
-            moveInput = Vector3.ClampMagnitude(moveInput, 1f);
+        
+            moveInput = new Vector3(Input.GetAxis("Horizontal"), 0f, Input.GetAxis("Vertical")).normalized;
+            Debug.Log(moveInput);
+            //moveInput = Vector3.ClampMagnitude(moveInput, 1f);
         if (Input.GetButton("Sprint"))
         {
             moveInput = transform.TransformDirection(moveInput) * runSpeed;
@@ -56,11 +58,11 @@ public class PlayerController : MonoBehaviour
         moveInput.y += gravityScale * Time.deltaTime;
         characterController.Move(moveInput * Time.deltaTime);
     }
-    }
+    
     private void Look()
     {
         rotationinput.x = Input.GetAxis("Mouse X") * rotationSensibility * Time.deltaTime;
-        rotationinput.x = Input.GetAxis("Mouse Y") * rotationSensibility * Time.deltaTime;
+        rotationinput.y = Input.GetAxis("Mouse Y") * rotationSensibility * Time.deltaTime;
 
         cameraVerticalAngle = cameraVerticalAngle + rotationinput.y;
         cameraVerticalAngle = Mathf.Clamp(cameraVerticalAngle, -70, 70);
