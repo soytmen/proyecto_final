@@ -9,6 +9,7 @@ public class Enemigo : MonoBehaviour
     public Animator ani;
     public Quaternion angulo;
     public float grado;
+    public GameObject target;
     private void Start()
     {
         ani = GetComponent<Animator>();

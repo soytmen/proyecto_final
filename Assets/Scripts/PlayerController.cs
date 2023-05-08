@@ -18,9 +18,17 @@ public class PlayerController : MonoBehaviour
     [Header("Rotation")]
     public float rotationSensibility;
     [Header("Jump")]
+    public bool isGrounded;
 
-    public float jumpHeight = 1.9f;
+    public Transform groundCheck;
+    public float groundDistance = 0.4f;
+    public LayerMask groundMask;
+
+    public float jumpHeight = 2f;
+
     private float cameraVerticalAngle;
+    private Vector3 velocity;
+
     [SerializeField] Vector3 moveInput = Vector3.zero;
     Vector3 rotationinput = Vector3.zero;
     CharacterController characterController;
@@ -49,7 +57,9 @@ public class PlayerController : MonoBehaviour
         {
             moveInput = transform.TransformDirection(moveInput) * walkSpeed;
         }
-        
+
+        velocity.y += gravityScale * Time.deltaTime;
+
 
         if (Input.GetButtonDown("Jump"))
         {
@@ -57,6 +67,10 @@ public class PlayerController : MonoBehaviour
         }
         moveInput.y += gravityScale * Time.deltaTime;
         characterController.Move(moveInput * Time.deltaTime);
+        if (Input.GetButtonDown("Jump") && isGrounded)
+        {
+            velocity.y = Mathf.Sqrt(jumpHeight * -2 * gravityScale);
+        }
     }
     
     private void Look()
