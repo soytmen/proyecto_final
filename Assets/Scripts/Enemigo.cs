@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class Enemigo : MonoBehaviour
 {
@@ -10,12 +11,20 @@ public class Enemigo : MonoBehaviour
     public Quaternion angulo;
     public float grado;
     public GameObject target;
+    public bool atacando;
+    public NavMeshAgent agente;
+    public float distancia_ataque;
+    public float radio_vision;
     private void Start()
     {
         ani = GetComponent<Animator>();
+        target = GameObject.Find("Link");
     }
     public void Comportamiento_Enemigo()
     {
+        if( Vector3.Distance(transform.position, target.transform.position) > radio_vision) 
+        {
+            ani.SetBool("run", false);
         cronometro += 1 * Time.deltaTime;
         if (cronometro >=4)
         {
@@ -39,6 +48,43 @@ public class Enemigo : MonoBehaviour
                 ani.SetBool("walk", true);
                 break;
         }
+        }
+        else
+        {
+            var lookPos = target.transform.position - transform.position;
+            lookPos.y = 0;
+            var rotation = Quaternion.LookRotation(lookPos);
+            agente.enabled = true;
+            agente.SetDestination(target.transform.position);
+            if(Vector3.Distance(transform.position, target.transform.position) > distancia_ataque && !atacando)
+            {
+                ani.SetBool("walk", false);
+                ani.SetBool("run", true);
+            }
+            else
+            {
+                if (!atacando)
+                {
+                    transform.rotation = Quaternion.RotateTowards(transform.rotation, rotation, 1);
+                    ani.SetBool("walk", false);
+                    ani.SetBool("run", false);
+                }
+            }
+
+        }
+        if (atacando)
+        {
+            agente.enabled = false;
+        }
+    }
+
+    public void final_Ani()
+    {
+       if(Vector3.Distance(transform.position, target.transform.position) > distancia_ataque + 0.2f)
+        {
+            ani.SetBool("attack", false);
+        }
+        atacando = false;
     }
     private void Update()
     {
