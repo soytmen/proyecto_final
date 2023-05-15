@@ -15,13 +15,16 @@ public class Enemigo : MonoBehaviour
     public NavMeshAgent agente;
     public float distancia_ataque;
     public float radio_vision;
+    public int vidaEnemigo;
     private void Start()
     {
+        vidaEnemigo = 100;
         ani = GetComponent<Animator>();
-        target = GameObject.Find("Link");
+        target = GameObject.Find("Player");
     }
     public void Comportamiento_Enemigo()
     {
+        Debug.Log(target);
         if( Vector3.Distance(transform.position, target.transform.position) > radio_vision) 
         {
             ani.SetBool("run", false);
@@ -88,6 +91,10 @@ public class Enemigo : MonoBehaviour
     }
     private void Update()
     {
+        if (vidaEnemigo == 0)
+        {
+            Destroy(gameObject);
+        }
         Comportamiento_Enemigo();
     }
 }

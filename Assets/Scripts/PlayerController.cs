@@ -10,6 +10,7 @@ public class PlayerController : MonoBehaviour
     [Header("General")]
 
     public float gravityScale = -20f;
+    public int vida;
 
     [Header("Movement")]
 
@@ -32,6 +33,10 @@ public class PlayerController : MonoBehaviour
     [SerializeField] Vector3 moveInput = Vector3.zero;
     Vector3 rotationinput = Vector3.zero;
     CharacterController characterController;
+
+    void Start()
+    {
+        vida = 100;    }
     private void Awake()
     {
         characterController = GetComponent<CharacterController>();
