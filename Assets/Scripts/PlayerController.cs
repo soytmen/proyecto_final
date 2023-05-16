@@ -1,16 +1,19 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement; // libreria cambio de escena
 
 [RequireComponent(typeof(CharacterController))]
 public class PlayerController : MonoBehaviour
 {
+    public Vida vida;
+    public bool Vida0;
     [Header("Referenes")]
     public Camera playerCamera;
     [Header("General")]
 
     public float gravityScale = -20f;
-    public int vida;
+  
 
     [Header("Movement")]
 
@@ -36,7 +39,8 @@ public class PlayerController : MonoBehaviour
 
     void Start()
     {
-        vida = 100;    }
+        vida = GetComponent<Vida>();   
+    }
     private void Awake()
     {
         characterController = GetComponent<CharacterController>();
@@ -44,9 +48,23 @@ public class PlayerController : MonoBehaviour
     }
     private void Update()
     {
-
+        RevisarVida();
         Look();
         Move();
+    }
+    void RevisarVida()
+    {
+        if (Vida0) return;
+        if (vida.valor <= 0)
+        {
+            Vida0 = true;
+            Invoke("GameOverMenu", 2f);
+            //cambiar escena a game over
+        }
+    }
+    void GameOverMenu() //pasar a menu de gamover
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
     private void Move()
     {

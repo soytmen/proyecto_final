@@ -35,7 +35,7 @@ public class Enemigo : MonoBehaviour
             cronometro = 0;
         }
         switch (rutina)
-    
+   
         {
             case 0:
                 ani.SetBool("walk", false);

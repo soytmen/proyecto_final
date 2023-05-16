@@ -13,8 +13,6 @@ public class DatoEnemigo : MonoBehaviour
     {
         BarraVidaEnemigo.value = vidaEnemigo;
 
-        if (){
-            vidaEnemigo -= damage;
-        }
+        
     }
 }
