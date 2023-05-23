@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement; // libreria cambio de escena
 
-[RequireComponent(typeof(CharacterController))]
 public class PlayerController : MonoBehaviour
 {
     public Vida vida;
@@ -31,19 +30,19 @@ public class PlayerController : MonoBehaviour
     public float jumpHeight = 2f;
 
     private float cameraVerticalAngle;
-    private Vector3 velocity;
 
     [SerializeField] Vector3 moveInput = Vector3.zero;
     Vector3 rotationinput = Vector3.zero;
-    CharacterController characterController;
+
+    Rigidbody rb;
 
     void Start()
     {
+        rb = GetComponent<Rigidbody>();
         vida = GetComponent<Vida>();   
     }
     private void Awake()
     {
-        characterController = GetComponent<CharacterController>();
         Cursor.lockState = CursorLockMode.Locked;
     }
     private void Update()
@@ -70,29 +69,23 @@ public class PlayerController : MonoBehaviour
     {
         
             moveInput = new Vector3(Input.GetAxis("Horizontal"), 0f, Input.GetAxis("Vertical")).normalized;
-            Debug.Log(moveInput);
-            //moveInput = Vector3.ClampMagnitude(moveInput, 1f);
+
         if (Input.GetButton("Sprint"))
         {
-            moveInput = transform.TransformDirection(moveInput) * runSpeed;
+            transform.Translate(moveInput * runSpeed*Time.deltaTime);
         }
         else
         {
-            moveInput = transform.TransformDirection(moveInput) * walkSpeed;
+            transform.Translate(moveInput * walkSpeed * Time.deltaTime);
         }
 
-        velocity.y += gravityScale * Time.deltaTime;
+   
 
+        if (Input.GetButtonDown("Jump") /* && isGrounded*/)
+        {
 
-        if (Input.GetButtonDown("Jump"))
-        {
-            moveInput.y = Mathf.Sqrt(jumpHeight * -2f * gravityScale);
-        }
-        moveInput.y += gravityScale * Time.deltaTime;
-        characterController.Move(moveInput * Time.deltaTime);
-        if (Input.GetButtonDown("Jump") && isGrounded)
-        {
-            velocity.y = Mathf.Sqrt(jumpHeight * -2 * gravityScale);
+            rb.AddForce(0,1000,0, ForceMode.Impulse);
+            Debug.Log("SHOULD JUMP");
         }
     }
     

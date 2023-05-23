@@ -21,6 +21,7 @@ public class Enemigo : MonoBehaviour
         vidaEnemigo = 100;
         ani = GetComponent<Animator>();
         target = GameObject.Find("Player");
+        agente = GetComponent<NavMeshAgent>();
     }
     public void Comportamiento_Enemigo()
     {
