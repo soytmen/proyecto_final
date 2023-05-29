@@ -1127,14 +1127,14 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2139084277670005062}
-  - component: {fileID: 2139084277670005061}
   - component: {fileID: 2139084277670005060}
   - component: {fileID: 2139084277670005059}
   - component: {fileID: 2139084277670005058}
   - component: {fileID: 7164903081883998719}
+  - component: {fileID: 357510459}
   m_Layer: 0
   m_Name: Ghoul (1)
-  m_TagString: Untagged
+  m_TagString: enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1159,19 +1159,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!65 &2139084277670005061
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2139084277670005057}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 3.6081936, z: 1.9942398}
-  m_Center: {x: 0, y: 1.9802684, z: 0.0036449432}
 --- !u!95 &2139084277670005060
 Animator:
   serializedVersion: 5
@@ -1210,7 +1197,7 @@ MonoBehaviour:
   angulo: {x: 0, y: 0, z: 0, w: 0}
   grado: 0
   target: {fileID: 0}
-  atacando: 0
+  muerto: 0
   agente: {fileID: 7164903081883998719}
   distancia_ataque: 1
   radio_vision: 10000000
@@ -1229,7 +1216,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 0
+  m_Constraints: 46
   m_CollisionDetection: 0
 --- !u!195 &7164903081883998719
 NavMeshAgent:
@@ -1253,6 +1240,20 @@ NavMeshAgent:
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
+--- !u!136 &357510459
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2139084277670005057}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 0.5
+  m_Height: 4.370507
+  m_Direction: 1
+  m_Center: {x: 0, y: 1.6852534, z: 0}
 --- !u!1 &2139084277687815817
 GameObject:
   m_ObjectHideFlags: 0
