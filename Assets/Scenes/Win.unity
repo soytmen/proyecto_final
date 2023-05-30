@@ -38,7 +38,11 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
+<<<<<<< HEAD
   m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
+=======
+  m_IndirectSpecularColor: {r: 0, g: 0, b: 0, a: 1}
+>>>>>>> 765b2fcf5e5e07120c9af844b07e9a999e8dcddf
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -133,7 +137,10 @@ GameObject:
   m_Component:
   - component: {fileID: 408319925}
   - component: {fileID: 408319924}
+<<<<<<< HEAD
   - component: {fileID: 408319926}
+=======
+>>>>>>> 765b2fcf5e5e07120c9af844b07e9a999e8dcddf
   m_Layer: 0
   m_Name: Directional Light
   m_TagString: Untagged
@@ -218,6 +225,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
+<<<<<<< HEAD
 --- !u!114 &408319926
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -664,6 +672,8 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1621292155}
   m_CullTransparentMesh: 1
+=======
+>>>>>>> 765b2fcf5e5e07120c9af844b07e9a999e8dcddf
 --- !u!1 &1745987396
 GameObject:
   m_ObjectHideFlags: 0
@@ -748,6 +758,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+<<<<<<< HEAD
 --- !u!1 &2125560455
 GameObject:
   m_ObjectHideFlags: 0
@@ -882,3 +893,5 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2125560455}
   m_CullTransparentMesh: 1
+=======
+>>>>>>> 765b2fcf5e5e07120c9af844b07e9a999e8dcddf

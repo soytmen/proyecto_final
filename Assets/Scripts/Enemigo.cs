@@ -27,6 +27,7 @@ public class Enemigo : MonoBehaviour
     }
     public void Comportamiento_Enemigo()
     {
+<<<<<<< HEAD
          
         float distancia = Vector3.Distance(transform.position, target.transform.position);
 
@@ -54,6 +55,21 @@ public class Enemigo : MonoBehaviour
         if (rutina >= 0f){
             rutina -= Time.deltaTime;
         }
+=======
+          agente.SetDestination(target.transform.position);
+float distancia = Vector3.Distance(transform.position, target.transform.position);
+
+          if (distancia <= 2f && rutina <= 0)
+          {
+    ani.SetBool("attack", true);
+    rutina = 2f;
+    target.GetComponent<Vida>().Recibirdano(20);
+
+          }
+if (rutina >= 0f){
+    rutina -= Time.deltaTime;
+}
+>>>>>>> 765b2fcf5e5e07120c9af844b07e9a999e8dcddf
     }
 
     
