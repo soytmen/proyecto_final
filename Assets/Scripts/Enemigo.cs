@@ -5,96 +5,72 @@ using UnityEngine.AI;
 
 public class Enemigo : MonoBehaviour
 {
-    public int rutina;
+    public float rutina;
     public float cronometro;
     public Animator ani;
     public Quaternion angulo;
     public float grado;
     public GameObject target;
-    public bool atacando;
+    public bool muerto;
     public NavMeshAgent agente;
     public float distancia_ataque;
     public float radio_vision;
-    public int vidaEnemigo;
+    public float vidaEnemigo;
     private void Start()
     {
+    
         vidaEnemigo = 100;
         ani = GetComponent<Animator>();
         target = GameObject.Find("Player");
         agente = GetComponent<NavMeshAgent>();
+        ani.SetBool("run", true);
     }
     public void Comportamiento_Enemigo()
     {
-        Debug.Log(target);
-        if( Vector3.Distance(transform.position, target.transform.position) > radio_vision) 
+         
+        float distancia = Vector3.Distance(transform.position, target.transform.position);
+
+        if (distancia > 2)
         {
-            ani.SetBool("run", false);
-        cronometro += 1 * Time.deltaTime;
-        if (cronometro >=4)
-        {
-            rutina = Random.Range(0, 2);
-            cronometro = 0;
-        }
-        switch (rutina)
-   
-        {
-            case 0:
-                ani.SetBool("walk", false);
-                break;
-            case 1:
-                grado = Random.Range(0, 360);
-                angulo = Quaternion.Euler(0, grado, 0);
-                rutina++;
-                break;
-            case 2:
-                transform.rotation = Quaternion.RotateTowards(transform.rotation, angulo, 0.5f);
-                transform.Translate(Vector3.forward * 1 * Time.deltaTime);
-                ani.SetBool("walk", true);
-                break;
-        }
+            agente.isStopped = false;
+
+            agente.SetDestination(target.transform.position);
+            return;
         }
         else
         {
-            var lookPos = target.transform.position - transform.position;
-            lookPos.y = 0;
-            var rotation = Quaternion.LookRotation(lookPos);
-            agente.enabled = true;
-            agente.SetDestination(target.transform.position);
-            if(Vector3.Distance(transform.position, target.transform.position) > distancia_ataque && !atacando)
-            {
-                ani.SetBool("walk", false);
-                ani.SetBool("run", true);
-            }
-            else
-            {
-                if (!atacando)
-                {
-                    transform.rotation = Quaternion.RotateTowards(transform.rotation, rotation, 1);
-                    ani.SetBool("walk", false);
-                    ani.SetBool("run", false);
-                }
-            }
+            agente.isStopped=true;
+        }
+
+        if (distancia <= 2f && rutina <= 0)
+        {
+            ani.SetBool("attack", true);
+            rutina = 2f;
+            target.GetComponent<Vida>().Recibirdano(20);
 
         }
-        if (atacando)
-        {
-            agente.enabled = false;
+        
+
+        if (rutina >= 0f){
+            rutina -= Time.deltaTime;
         }
     }
 
-    public void final_Ani()
-    {
-       if(Vector3.Distance(transform.position, target.transform.position) > distancia_ataque + 0.2f)
-        {
-            ani.SetBool("attack", false);
-        }
-        atacando = false;
-    }
+    
     private void Update()
     {
-        if (vidaEnemigo == 0)
+        if(muerto){
+            agente.Stop();
+            GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;
+            transform.position += Vector3.up * -1;
+            return;
+        }
+        if (vidaEnemigo <= 0)
         {
-            Destroy(gameObject);
+            muerto = true;
+
+            ani.SetBool("death", true);
+            Destroy(gameObject, 5f);
         }
         Comportamiento_Enemigo();
     }

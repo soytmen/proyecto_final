@@ -50,6 +50,10 @@ public class PlayerController : MonoBehaviour
         RevisarVida();
         Look();
         Move();
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            UnityEngine.SceneManagement.SceneManager.LoadScene(3);
+        }
     }
     void RevisarVida()
     {
@@ -83,10 +87,13 @@ public class PlayerController : MonoBehaviour
 
         if (Input.GetButtonDown("Jump") /* && isGrounded*/)
         {
-
+            RaycastHit hit;
+            if(Physics.Raycast(transform.position, - transform.up, out hit, 1f))
+            {
+                    Debug.Log(hit.transform);
             rb.AddForce(0,1000,0, ForceMode.Impulse);
-            Debug.Log("SHOULD JUMP");
-        }
+            }
+         }
     }
     
     private void Look()

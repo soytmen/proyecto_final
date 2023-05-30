@@ -9,7 +9,8 @@ public class Shot : MonoBehaviour
 
     public float shotForce = 1500;
     public float shotRate = 0.5f;
-
+public float distanciarayo = 200f;
+public float dano = 50;
     private float shotRateTime = 0;
 
     void Update()
@@ -20,6 +21,16 @@ public class Shot : MonoBehaviour
             {
                 GameObject newBullet;
                 newBullet = Instantiate(bullet,spawnPoint.position,spawnPoint.rotation);
+                Debug.DrawRay(transform.position,spawnPoint.forward * 20, Color.yellow);
+                RaycastHit hit;
+                if(Physics.Raycast(transform.position, transform.forward, out hit, distanciarayo)){
+                    Debug.Log(hit.transform);
+if(hit.transform.tag == "enemy"){
+
+    hit.transform.GetComponent<Enemigo>().vidaEnemigo -= dano;
+
+}
+                }
                 newBullet.GetComponent<Rigidbody>().AddForce(spawnPoint.forward*shotForce);
 
                 shotRateTime = Time.time + shotRate;
@@ -27,5 +38,7 @@ public class Shot : MonoBehaviour
                 Destroy(newBullet, 2);
             }
         }
+
+        
     }
 }

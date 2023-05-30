@@ -1,12 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using TMPro;
 public class Collisions : MonoBehaviour
 {
-    public int Points;
+   
     public Transform coins;
     public int totalCoins;
+    public TMP_Text textocoin;
     void Start()
     {
         totalCoins = coins.childCount;
@@ -18,23 +19,20 @@ public class Collisions : MonoBehaviour
        
         if (totalCoins == 10)
         {
-            Debug.Log($"You Win");
+            UnityEngine.SceneManagement.SceneManager.LoadScene(4);
         }
     }
-    private void OnCollisionEnter(Collision other)
-    {
-        if (other.gameObject.name.Contains("obstacle"))
-        {
-            Points--;
-        }
-    }
+    
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.name.Contains("Coins"))
         {
-            Destroy(other.gameObject);
-            Points += 1;
+           
             totalCoins ++;
+             textocoin.text = totalCoins + " / 10";
+            
+           
+            Destroy(other.gameObject);
         }
 
 
